@@ -1,4 +1,4 @@
-README for Devel::LeakTrace 0.04
+README for Devel::LeakTrace 0.05
 
 =head1 NAME
 
@@ -33,6 +33,17 @@ What changed over the last 3 revisions
 
 =over
 
+=item 0.05 Friday 19th September, 2003
+
+	Fix the INIT/BEGIN thing correctly by adding resetting as an
+	independant action
+
+	Small speedup.  At every boundary check that PL_sv_count hasn't 
+	changed.  There's potential for this to fuck up in the case where you
+	free and create an SV in the same statement.  Never mind the 
+	correctness, feel the speed.
+
+
 =item 0.04 Tuesday 15th July, 2003
 
 	Port to Module::Build 0.19
@@ -42,9 +53,6 @@ What changed over the last 3 revisions
 =item 0.03 Wednesday 7th May, 2003
 
 	Test suite fixes
-
-
-=item 0.02
 
 =back
 

@@ -71,7 +71,6 @@ print_me(gpointer key, gpointer value, gpointer user_data) {
     }
 }
 
-
 static
 int
 note_changes( char *file, int line ) {
@@ -95,12 +94,16 @@ int
 runops_leakcheck(pTHX) {
     char *lastfile = 0;
     int lastline = 0;
+    IV last_count = 0;
 
     while ((PL_op = CALL_FPTR(PL_op->op_ppaddr)(aTHX))) {
         PERL_ASYNC_CHECK();
 
         if (PL_op->op_type == OP_NEXTSTATE) {
-            note_changes( lastfile, lastline );
+            if (PL_sv_count != last_count) {
+                note_changes( lastfile, lastline );
+                last_count = PL_sv_count;
+            }
             lastfile = CopFILE(cCOP);
             lastline = CopLINE(cCOP);
         }
@@ -117,11 +120,20 @@ MODULE = Devel::LeakTrace PACKAGE = Devel::LeakTrace
 PROTOTYPES: ENABLE
 
 void
-start_up()
+hook_runops()
   PPCODE:
 {
     note_changes(NULL, 0);
     PL_runops = runops_leakcheck;
+}
+
+void
+reset_counters()
+  PPCODE:
+{
+    if (used) g_hash_table_destroy( used );
+    used = NULL;
+    note_changes(NULL, 0);
 }
 
 void

@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name: Devel-LeakTrace
-version: 0.04
+version: 0.05
 license: perl
 distribution_type: module
 requires:
@@ -13,5 +13,5 @@ dynamic_config: 1
 provides:
   Devel::LeakTrace:
     file: lib/Devel/LeakTrace.pm
-    version: 0.04
-generated_by: Module::Build version 0.19
+    version: 0.05
+generated_by: Module::Build version 0.20
