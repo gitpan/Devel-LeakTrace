@@ -3,9 +3,12 @@ use strict;
 require 5.006;
 use base 'DynaLoader';
 
-INIT {
-    our $VERSION = 0.01;
+BEGIN {
+    our $VERSION = 0.02;
     bootstrap Devel::LeakTrace $VERSION;
+}
+
+INIT {
     start_up();
 }
 
