@@ -1,5 +1,10 @@
-LeakTrace.pm
-LeakTrace.xs
+lib/Devel/LeakTrace.pm
+lib/Devel/LeakTrace.xs
+META.yml
+README
+Changes
 MANIFEST
+Build.PL
 Makefile.PL
+t/00compile.t
 t/Devel-LeakTrace.t
